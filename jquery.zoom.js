@@ -113,7 +113,9 @@
 
 				function start(e) {
 					zoom.init();
-					zoom.move(e);
+					if (e) {
+						zoom.move(e);
+					}
 
 					// Skip the fade-in for IE8 and lower since it chokes on fading-in
 					// and changing position based on mousemovement at the same time.
@@ -187,6 +189,9 @@
 						.on('mouseenter.zoom', start)
 						.on('mouseleave.zoom', stop)
 						.on(mousemove, zoom.move);
+				} else if (settings.on === 'always') {
+					start(null);
+					$(document).on(mousemove, zoom.move);
 				}
 
 				// Touch fallback
